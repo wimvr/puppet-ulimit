@@ -18,21 +18,18 @@ include FalkorLib::Common
 
 # Load metadata
 basedir   = File.directory?('/vagrant') ? '/vagrant' : Dir.pwd
-jsonfile  = File.join( basedir, 'metadata.json')
-puppetdir = '/etc/puppetlabs'
+jsonfile  = File.join(basedir, 'metadata.json')
 
-error "Unable to find the metadata.json" unless File.exists?(jsonfile)
+error 'Unable to find the metadata.json' unless File.exist?(jsonfile)
 
-metadata   = JSON.parse( IO.read( jsonfile ) )
-name = metadata["name"].gsub(/^[^\/-]+[\/-]/,'')
-modulepath=`puppet config print modulepath`.chomp
-moduledir=modulepath.split(':').first
+metadata = JSON.parse(IO.read(jsonfile))
+name = metadata['name'].gsub(%r{/^[^\/-]+[\/-]/}, '')
+modulepath = `puppet config print modulepath`.chomp
+moduledir = modulepath.split(':').first
 
-
-run %{ cd #{moduledir}/.. && librarian-puppet clean && rm Puppetfile* }
-run %{ ln -s /vagrant/metadata.json #{moduledir}/../ }
-run %{ cd #{moduledir}/.. && librarian-puppet install --verbose }
-
+run %q( cd #{moduledir}/.. && librarian-puppet clean && rm Puppetfile* )
+run %q( ln -s /vagrant/metadata.json #{moduledir}/../ )
+run %q( cd #{moduledir}/.. && librarian-puppet install --verbose )
 
 # metadata["dependencies"].each do |dep|
 # 	lib = dep["name"]
@@ -45,13 +42,7 @@ puts "Module path: #{modulepath}"
 puts "Moduledir:   #{moduledir}"
 
 info "set symlink to the '#{basedir}' module for local developments"
-run %{ ln -s #{basedir} #{moduledir}/#{name}  } unless File.exists?("#{moduledir}/#{name}")
-
-# Use of 'hiera.yaml' version 3 is deprecated. It should be converted to version 5
-hiera = '/etc/puppetlabs/puppet/hiera.yaml'
-
-
-
+run %q( ln -s #{basedir} #{moduledir}/#{name}  ) unless File.exist?("#{moduledir}/#{name}")
 
 # Prepare hiera
 # unless File.exists?('/etc/puppet/hiera.yaml')
