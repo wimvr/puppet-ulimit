@@ -74,19 +74,17 @@
 #          Value to set for the domain / type
 #
 define ulimit::rule (
-  String $ensure         = 'present',
-  $content               = undef,
-  Integer $priority      = 80,
-  $source                = undef,
-  $target                = undef,
-  String  $ulimit_domain = '*',
-  $ulimit_type           = undef,
-  $ulimit_item           = undef,
-  $ulimit_value          = undef,
+  Enum['present', 'absent'] $ensure = 'present',
+  $content                          = undef,
+  Integer $priority                 = 80,
+  $source                           = undef,
+  $target                           = undef,
+  String  $ulimit_domain            = '*',
+  $ulimit_type                      = undef,
+  $ulimit_item                      = undef,
+  $ulimit_value                     = undef,
 )
 {
-  validate_legacy('String', 'validate_re', $ensure, ['^present', '^absent'])
-
   require ::ulimit
   include ::ulimit::config
 
