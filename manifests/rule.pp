@@ -74,19 +74,18 @@
 #          Value to set for the domain / type
 #
 define ulimit::rule (
-  Enum['present', 'absent'] $ensure = 'present',
-  $content                          = undef,
-  Integer $priority                 = 80,
-  $source                           = undef,
-  $target                           = undef,
-  String  $ulimit_domain            = '*',
-  $ulimit_type                      = undef,
-  $ulimit_item                      = undef,
-  $ulimit_value                     = undef,
-)
-{
-  require ::ulimit
-  include ::ulimit::config
+  Enum['present', 'absent'] $ensure   = 'present',
+  String $content                     = undef,
+  Integer $priority                   = 80,
+  String $source                      = undef,
+  String $target                      = undef,
+  String  $ulimit_domain              = '*',
+  Variant[String, Array] $ulimit_type = undef,
+  Variant[String, Array] $ulimit_item = undef,
+  Any $ulimit_value                   = undef,
+) {
+  require ulimit
+  include ulimit::config
 
   if ($content == undef and $source == undef and $target == undef) {
     if ($ulimit_type == undef or $ulimit_item == undef or $ulimit_value == undef) {
@@ -100,11 +99,11 @@ define ulimit::rule (
     }
   }
   $types = $ulimit_type.is_a(String) ? {
-    true    => [ $ulimit_type ],
+    true    => [$ulimit_type],
     default => $ulimit_type,
   }
   $items = $ulimit_item.is_a(String) ? {
-    true    => [ $ulimit_item ],
+    true    => [$ulimit_item],
     default => $ulimit_item,
   }
   $real_content = ($content == undef) ? {
@@ -115,11 +114,10 @@ define ulimit::rule (
     default => $content,
   }
 
-  file { "${::ulimit::config_dir}/${priority}_${name}.conf":
+  file { "${ulimit::config_dir}/${priority}_${name}.conf":
     ensure  => $ensure,
     content => $real_content,
     source  => $source,
-    require => File[$::ulimit::config_dir],
+    require => File[$ulimit::config_dir],
   }
-
 }

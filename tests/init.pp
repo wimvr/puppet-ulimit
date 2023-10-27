@@ -14,5 +14,5 @@
 #      sudo puppet apply -vt /vagrant/tests/init.pp
 #
 node default {
-  include ::ulimit
+  include ulimit
 }
