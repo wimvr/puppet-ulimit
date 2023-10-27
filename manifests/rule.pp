@@ -74,15 +74,15 @@
 #          Value to set for the domain / type
 #
 define ulimit::rule (
-  Enum['present', 'absent'] $ensure   = 'present',
-  String $content                     = undef,
-  Integer $priority                   = 80,
-  String $source                      = undef,
-  String $target                      = undef,
-  String  $ulimit_domain              = '*',
-  Variant[String, Array] $ulimit_type = undef,
-  Variant[String, Array] $ulimit_item = undef,
-  Any $ulimit_value                   = undef,
+  Enum['present', 'absent'] $ensure             = 'present',
+  Optional[String] $content                     = undef,
+  Integer $priority                             = 80,
+  Optional[String] $source                      = undef,
+  Optional[String] $target                      = undef,
+  String  $ulimit_domain                        = '*',
+  Optional[Variant[String, Array]] $ulimit_type = undef,
+  Optional[Variant[String, Array]] $ulimit_item = undef,
+  Any $ulimit_value                             = undef,
 ) {
   require ulimit
   include ulimit::config
