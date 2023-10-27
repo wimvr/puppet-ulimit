@@ -5,6 +5,7 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/svarrette/ulimit.svg)](https://forge.puppet.com/svarrette/ulimit) [![License](http://img.shields.io/:license-Apache2.0-blue.svg)](LICENSE) ![Supported Platforms](http://img.shields.io/badge/platform-debian|redhat|centos-lightgrey.svg)
 
       Copyright (c) 2015-2017 Tom De Vylder (aka arioch), Sebastien Varrette (aka Falkor)
+      Copyright (c) 2023 Wim van Ravesteijn
 
 [ulimit](https://ss64.com/bash/ulimit.html) provides control over the resources available to the shell and to processes started by it, on systems that allow such control.
 
@@ -14,9 +15,8 @@ This [Puppet](https://puppet.com/) module is designed to configure and manage ul
 * The hard limit acts as a ceiling for the soft limit.
 
 
-**`/! IMPORTANT`: This module is a fork from [arioch/puppet-ulimit](https://github.com/arioch/puppet-ulimit/)!!!**
-This was done to allow a version release on my own namespace compliant with Puppet 4 until [Tom/arioch](https://github.com/arioch) released the official new version on his module.
-In the mean time, I added more features (vagrant-based tests, support for arrays, content and source) yet **this module is expected to disappear** once [Tom/arioch](https://github.com/arioch) (hopefully) integrate my pull-request.
+**`/! IMPORTANT`: This module is a fork from [Falkor/puppet-ulimit](https://github.com/Falkor/puppet-ulimit/)!!!**
+This was done to allow a version release on my own namespace compliant with EL8 until [Sebastien/Falkor](https://github.com/Falkor) released the official new version on his module.
 
 In particular, this module implements the following elements:
 
@@ -24,33 +24,36 @@ In particular, this module implements the following elements:
 * class `ulimit::config`: an **internal** class taking care of global configurations and defaults
 * definition `ulimit::rule`: permiting to define a rule in `'/etc/security/limits.d/'`
 
-All these components are configured through a set of variables you will find in [`manifests/params.pp`](https://github.com/Falkor/puppet-ulimit/blob/master/manifests/params.pp).
+All these components are configured through a set of variables you will find in [`manifests/params.pp`](https://github.com/wimvr/puppet-ulimit/blob/master/manifests/params.pp).
 
 ### Setup Requirements
 
-This module have been successfully over Puppet 4.x. with:
+This module have been successfully over Puppet 7.x. with:
 
 * Debian 5 (Lenny)
 * Debian 6 (Squeeze)
 * CentOS 5
 * CentOS 6
 * CentOS 7
+* CentOS 8
 * RedHat 6
 * RedHat 7
+* RedHat 8
+* AlmaLinux 8
+* Rocky 8
 
-Over operating systems and support for Puppet 5.x will eventually be added.
 Yet feel free to contribute to this module to help us extending the usage of this module.
 
 ## Forge Module Dependencies
 
-See [`metadata.json`](https://github.com/Falkor/puppet-ulimit/blob/master/metadata.json).
+See [`metadata.json`](https://github.com/wimvr/puppet-ulimit/blob/master/metadata.json).
 In particular, this module depends on
 
 * [puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
 
 ## Overview and Usage
 
-See also [`tests/rule.pp`](https://github.com/Falkor/puppet-ulimit/blob/master/tests/rule.pp)
+See also [`tests/rule.pp`](https://github.com/wimvr/puppet-ulimit/blob/master/tests/rule.pp)
 
 ---------------
 ```ruby

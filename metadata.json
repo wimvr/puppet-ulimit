@@ -1,12 +1,12 @@
 {
-  "name": "svarrette-ulimit",
-  "version": "1.0.6",
-  "author": "Tom De Vylder, Sebastien Varrette",
-  "summary": "Puppet Ulimit module, fork from arioch/puppet-ulimit",
+  "name": "wimvr-ulimit",
+  "version": "1.1.0",
+  "author": "Tom De Vylder, Sebastien Varrette, Wim van Ravesteijn",
+  "summary": "Puppet Ulimit module, fork from svarrette/puppet-ulimit",
   "license": "Apache-2.0",
-  "source": "https://github.com/Falkor/puppet-ulimit",
-  "project_page": "https://github.com/Falkor/puppet-ulimit",
-  "issues_url": "https://github.com/Falkor/puppet-ulimit/issues",
+  "source": "https://github.com/wimvr/puppet-ulimit",
+  "project_page": "https://github.com/wimvr/puppet-ulimit",
+  "issues_url": "https://github.com/wimvr/puppet-ulimit/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
