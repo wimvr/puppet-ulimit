@@ -1,5 +1,3 @@
--*- mode: markdown; mode: visual-line;  -*-
-
 # Ulimit Puppet Module
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/svarrette/ulimit.svg)](https://forge.puppet.com/svarrette/ulimit) [![License](http://img.shields.io/:license-Apache2.0-blue.svg)](LICENSE) ![Supported Platforms](http://img.shields.io/badge/platform-debian|redhat|centos-lightgrey.svg)
