@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.2.0
+
+**Features**
+
+- Added EL9 support
+- Drop EL6 support
+- Puppet 8 support / Drop Puppet 6
+
 ## Release 1.1.1
 
 **Bugfixes**

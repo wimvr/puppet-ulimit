@@ -32,28 +32,7 @@ class ulimit::params {
   # ulimit defaults
   case $facts['os']['name'] {
     'RedHat','CentOS','Scientific','Rocky','AlmaLinux': {
-      if $facts['os']['release']['major'] == '5' {
-        # pam package on EL5 doesn't create anything
-        $default_ulimits = {}
-      } elsif $facts['os']['release']['major'] == '6' {
-        # pam package on EL6 creates 90-nproc.conf
-        $default_ulimits = {
-          'nproc_user_defaults' => {
-            'priority'          => 90,
-            'ulimit_domain'     => '*',
-            'ulimit_item'       => 'nproc',
-            'ulimit_type'       => 'soft',
-            'ulimit_value'      => '1024',
-          },
-          'nproc_root_defaults' => {
-            'priority'          => 90,
-            'ulimit_domain'     => 'root',
-            'ulimit_item'       => 'nproc',
-            'ulimit_type'       => 'soft',
-            'ulimit_value'      => 'unlimited',
-          },
-        }
-      } elsif $facts['os']['release']['major'] == '7' {
+      if $facts['os']['release']['major'] == '7' {
         # pam package on EL7 creates 20-nproc.conf
         $default_ulimits = {
           'nproc_user_defaults' => {
@@ -88,9 +67,26 @@ class ulimit::params {
             'ulimit_value'    => 'unlimited',
           },
         }
+      } elsif $facts['os']['release']['major'] == '9' {
+        $default_ulimits = {
+          'nproc_user_defaults' => {
+            'priority'          => 20,
+            'ulimit_domain'     => '*',
+            'ulimit_item'       => 'nproc',
+            'ulimit_type'       => 'soft',
+            'ulimit_value'      => '31547',
+          },
+          'nproc_root_defaults' => {
+            'priority'        => 20,
+            'ulimit_domain'   => 'root',
+            'ulimit_item'     => 'nproc',
+            'ulimit_type'     => 'soft',
+            'ulimit_value'    => 'unlimited',
+          },
+        }
       } else {
         # if some other release then don't risk destroying default config
-        fail("Unsupported operatingsystemmajrelease: ${facts['os']['release']['major']}")
+        fail("Unsupported operating system major release: ${facts['os']['release']['major']}")
       }
     } default: {
       $default_ulimits = {}
